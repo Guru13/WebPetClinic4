@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - clientsdb@localhost" uuid="22c566b0-5c53-491f-b47b-d67c554244ac">
+    <database-info product="MySQL" version="5.6.22-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="clientsdb"/>
+    <table name="address" schema="" catalog="clientsdb" type="TABLE">
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="city" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="street" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="house" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="apartment" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="uid"/>
+      <exported-key name="addressid" table="client" schema="" catalog="clientsdb" columns="address_id"/>
+      <index name="uid_UNIQUE" unique="true" columns="uid"/>
+    </table>
+    <table name="client" schema="" catalog="clientsdb" type="TABLE">
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="age" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="sex" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pet_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="uid"/>
+      <foreign-key name="addressid" columns="address_id" ref-table="address" ref-schema="" ref-catalog="clientsdb" ref-columns="uid" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="petid" columns="pet_id" ref-table="pet" ref-schema="" ref-catalog="clientsdb" ref-columns="uid" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="idclient_UNIQUE" unique="true" columns="uid"/>
+      <index name="addressid_idx" unique="false" columns="address_id"/>
+      <index name="petid_idx" unique="false" columns="pet_id"/>
+    </table>
+    <table name="pet" schema="" catalog="clientsdb" type="TABLE">
+      <column name="uid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nick" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="class" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sex" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="age" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="uid"/>
+      <exported-key name="petid" table="client" schema="" catalog="clientsdb" columns="pet_id"/>
+      <index name="uid_UNIQUE" unique="true" columns="uid"/>
+    </table>
+  </data-source>
+</component>
