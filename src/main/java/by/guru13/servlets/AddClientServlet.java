@@ -24,11 +24,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 @WebServlet(name = "AddClientServlet", urlPatterns = "/add")
 public class AddClientServlet extends HttpServlet {
 
-        public ClientCashe clinic ;
+        public ClientCashe clinic  = ClientCashe.getInstance();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        clinic = new ClientCashe();
+
+        request.setAttribute("clinic", clinic);
         Pet pet = null;
         Address address = null;
         address = new Address(request.getParameter("clientCity"), request.getParameter("clientStreet"),
@@ -49,15 +50,20 @@ public class AddClientServlet extends HttpServlet {
         if (request.getParameter("sex").equals("female")) {
             maleClient = "female";
         }
-
+        System.out.println(pet);
+        System.out.println(address);
+        Client client = new Client(request.getParameter("clientName"), pet, maleClient, Integer.valueOf(request.getParameter("clientAge")), address);
+        System.out.println(client);
         if (!request.getParameter("clientName").isEmpty() && !request.getParameter("clientAge").isEmpty()) {
 //            this.clinic.add(new Client(request.getParameter("clientName"), pet, maleClient,
 //                    Integer.valueOf(request.getParameter("clientAge")), address));
-            clinic.add(new Client(request.getParameter("clientName"), maleClient, Integer.valueOf(request.getParameter("clientAge"))), address, pet);
-            clinic.close();
+
+//            clinic.add(new Client(request.getParameter("clientName"), maleClient, Integer.valueOf(request.getParameter("clientAge"))), address, pet);
+            clinic.add(client,address,pet);
+//            clinic.close();
         }
 
-        request.setAttribute("clinic", clinic);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clinic/ClinicView.jsp");
         dispatcher.forward(request, response);
     }

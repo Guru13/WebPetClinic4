@@ -50,4 +50,14 @@ public class Address {
     public void setApartment(int apartment) {
         this.apartment = apartment;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house=" + house +
+                ", apartment=" + apartment +
+                '}';
+    }
 }

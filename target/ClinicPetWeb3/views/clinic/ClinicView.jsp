@@ -95,9 +95,9 @@
             <td>Pet's type</td>
             <td>Edit client</td>
         </tr>
-        <c:forEach items="${clinic.values()}" var="client" varStatus="status">
+        <c:forEach items="${clinic[values]}" var="client" varStatus="status">
             <tr valign="top">
-                <td>${client.getId()}</td>
+                <td>${client.id}</td>
                 <td>${client.getName()}</td>
                 <td>${client.getPet().getNick()}</td>
                 <td>${client.getPet().getClass().getSimpleName()}</td>

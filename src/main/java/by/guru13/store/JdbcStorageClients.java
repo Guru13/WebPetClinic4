@@ -44,8 +44,8 @@ public Connection connection;
     @Override
     public Collection<Client> values() {
         final List<Client> clients = new ArrayList<Client>();
-        Statement statement = null;
-        ResultSet rs = null;
+        Statement statement;
+        ResultSet rs;
         try {
             statement = this.connection.createStatement();
             rs = statement.executeQuery("SELECT c.uid, c.name, a.city, c.age,\n" +
@@ -70,19 +70,8 @@ public Connection connection;
                     clients.add(new Client(rs.getInt("uid"), rs.getString("name"), pet, rs.getString("sex"), rs.getInt("age"), address));
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-
-                rs.close();
-                statement.close();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
         }
         return clients;
     }
@@ -95,7 +84,7 @@ public Connection connection;
     @Override
     public int add(Client client, Address address, Pet pet) {
 
-         PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
           statement =   this.connection.prepareStatement("INSERT INTO client (uid, name, age, sex, pet_id, address_id)  VALUES (?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
@@ -119,17 +108,11 @@ public Connection connection;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            try {
-
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-
         return client.getId();
     }
+
+
     public int addAddress(Address address){
         PreparedStatement statement = null;
         try {
@@ -147,24 +130,15 @@ public Connection connection;
                 }
             }catch (SQLException e){
                 e.printStackTrace();
-            } finally {
-                generatedKey.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         throw new IllegalStateException("Could not create new address");
     }
     public int addPet(Pet pet){
 
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             statement = this.connection.prepareStatement("INSERT INTO pet (nick, class, sex, age)  VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 
@@ -181,20 +155,11 @@ public Connection connection;
                 }
             }catch (SQLException e){
                 e.printStackTrace();
-            } finally {
-                generatedKey.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-//            try {
-//                statement.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
         }
         throw new IllegalStateException("could not create new pet");
-
     }
 
     @Override
@@ -204,12 +169,38 @@ public Connection connection;
 
     @Override
     public void delete(int id) {
+        PreparedStatement statement;
+        Statement statement1;
+        try {
+            statement1 = this.connection.createStatement();
+            ResultSet rs = statement1.executeQuery("SELECT * FROM client WHERE uid =" + id);
+            int uidPet;
+            int uidAddress;
+            while (rs.next()){
+                uidPet = rs.getInt("pet_id");
+                uidAddress = rs.getInt("address_id");
+                statement = this.connection.prepareStatement("DELETE FROM client WHERE uid = (?)");
+                statement.setInt(1, id);
+                statement.executeUpdate();
 
+                statement = this.connection.prepareStatement("DELETE FROM pet WHERE uid = (?)");
+                statement.setInt(1, uidPet);
+                statement.executeUpdate();
+                statement = this.connection.prepareStatement("DELETE FROM address WHERE uid = (?)");
+                statement.setInt(1, uidAddress);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Client get(int id) {
-        return null;
+        List<Client> clients = (ArrayList<Client>) values();
+        clients.get(id);
+
+        return  clients.get(id);
     }
 
     @Override

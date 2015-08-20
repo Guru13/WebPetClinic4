@@ -30,6 +30,7 @@ public class Main {
         address.setStreet("svoya");
         Pet pet = new Dog("joy", "dog", "male", 23);
         clientCashe.add(new Client("gig", "male", 23), address, pet);
+        clientCashe.delete(5);
 //        store.addAddress(address);
 //        store.addPet(pet);
     }

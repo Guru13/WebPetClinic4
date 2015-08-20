@@ -14,9 +14,8 @@ import java.util.Collection;
 public class ClientCashe implements Storage {
     private final static  ClientCashe INSTANCE = new ClientCashe();
     private  Storage storage = new JdbcStorageClients();
-//    private Storage storage = new MemoryStorageClients();
 
-    public ClientCashe() {
+    private ClientCashe() {
 
     }
 

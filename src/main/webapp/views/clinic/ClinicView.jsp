@@ -20,7 +20,7 @@
         <form action="${pageContext.servletContext.contextPath}/add" method='post'>
             <h2>Client</h2>
             client's name: <input type='text' name='clientName'>
-            </br>
+            <br/>
             </br>
             city: <input type='text' name='clientCity'>
             </br>
@@ -95,12 +95,12 @@
             <td>Pet's type</td>
             <td>Edit client</td>
         </tr>
-        <c:forEach items="${clinic.values()}" var="client" varStatus="status">
+        <c:forEach items="${clinic[values]}" var="client" varStatus="status">
             <tr valign="top">
-                <td>${client.getId()}</td>
+                <td>${client.id}</td>
                 <td>${client.getName()}</td>
                 <td>${client.getPet().getNick()}</td>
-                <td>${client.getPet().getClass().getSimpleName()}</td>
+                <td>${client.getPet().getClass()}</td>
                 <td><a href="${pageContext.servletContext.contextPath}/edit?id=${client.getId()}">edit</a></td>
             </tr>
         </c:forEach>
