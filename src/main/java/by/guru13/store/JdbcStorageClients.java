@@ -114,7 +114,7 @@ public Connection connection;
 
 
     public int addAddress(Address address){
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             statement = this.connection.prepareStatement("INSERT INTO address (city, street, house, apartment)  VALUES (?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, address.getCity());
@@ -122,7 +122,7 @@ public Connection connection;
             statement.setInt(3, address.getHouse());
             statement.setInt(4, address.getApartment());
             statement.executeUpdate();
-            ResultSet generatedKey = null;
+            ResultSet generatedKey ;
             try {
                 generatedKey = statement.getGeneratedKeys();
                 if (generatedKey.next()){
@@ -197,15 +197,25 @@ public Connection connection;
 
     @Override
     public Client get(int id) {
-        List<Client> clients = (ArrayList<Client>) values();
-        clients.get(id);
-
-        return  clients.get(id);
+        Client clientN = null;
+        for (Client client : values()){
+            if (client.getId() == id){
+                clientN = client;
+            }
+        }
+        return clientN;
     }
 
     @Override
-    public Client findByName(String name) {
-        return null;
+    public ArrayList<Client> findByName(String name) {
+       ArrayList<Client> clients = new ArrayList<Client>();
+
+        for (Client client : values()){
+            if (client.getName().equals(name)){
+                clients.add(client);
+            }
+        }
+        return clients;
     }
 
     @Override

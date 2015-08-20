@@ -56,7 +56,7 @@ public class ClientCashe implements Storage {
     }
 
     @Override
-    public Client findByName(String name) {
+    public Collection<Client> findByName(String name) {
         return this.storage.findByName(name);
     }
 

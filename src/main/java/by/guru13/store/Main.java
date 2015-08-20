@@ -29,9 +29,13 @@ public class Main {
         address.setHouse(34);
         address.setStreet("svoya");
         Pet pet = new Dog("joy", "dog", "male", 23);
-        clientCashe.add(new Client("gig", "male", 23), address, pet);
-        clientCashe.delete(5);
+//        clientCashe.add(new Client("gig", "male", 23), address, pet);
+//        clientCashe.delete(5);
+        System.out.println(clientCashe.get(7));
 //        store.addAddress(address);
 //        store.addPet(pet);
+        for (Client client : clientCashe.findByName("gig")){
+            System.out.println(client);
+        }
     }
 }

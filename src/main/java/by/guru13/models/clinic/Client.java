@@ -128,7 +128,7 @@ public class Client {
     public String toString() {
         return "Client{" +
                 "id=" + id +
-                ", nick='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", pet=" + pet.getNick() +
                 ", sex=" + sex +
                 ", age=" + age +

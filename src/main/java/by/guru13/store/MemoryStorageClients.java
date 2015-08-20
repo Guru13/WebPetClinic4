@@ -4,6 +4,7 @@ import by.guru13.models.clinic.Address;
 import by.guru13.models.clinic.Client;
 import by.guru13.models.clinic.animals.Pet;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,13 +50,15 @@ public class MemoryStorageClients implements Storage {
     }
 
     @Override
-    public Client findByName(String name) {
+    public Collection<Client> findByName(String name) {
+        ArrayList<Client> clientsFounded = new ArrayList<Client>();
         for (Client client : clients.values()) {
             if (client.getName().equals(name)) {
-                return client;
+                clientsFounded.add(client);
             }
         }
-        throw new IllegalStateException(String.format("Client's name %s is not found", name));
+        return clientsFounded;
+//        throw new IllegalStateException(String.format("Client's name %s is not found", name));
     }
 
     @Override

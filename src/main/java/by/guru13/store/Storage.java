@@ -23,7 +23,7 @@ public interface Storage {
 
     public Client get(final int id);
 
-    public Client findByName(final String name);
+    public Collection<Client> findByName(final String name);
 
     public int generateId();
 
